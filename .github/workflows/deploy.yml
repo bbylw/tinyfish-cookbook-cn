@@ -33,8 +33,6 @@ jobs:
 
       - name: Build with Astro
         run: npm run build
-        env:
-          BASE: /tinyfish-cookbook-cn/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

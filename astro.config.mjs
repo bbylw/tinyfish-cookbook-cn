@@ -2,10 +2,10 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
-// GitHub 项目页面部署在子路径 /tinyfish-cookbook-cn/ 下，
-// 通过环境变量 BASE 在 CI 中注入，本地 dev 保持根路径。
+// GitHub Pages 自定义域名部署到根域 tinyfish.ndjp.net，
+// base 默认 '/'；如需子路径部署，通过环境变量 BASE 注入。
 export default defineConfig({
-  site: 'https://bbylw.github.io',
+  site: 'https://tinyfish.ndjp.net',
   base: process.env.BASE || '/',
   vite: {
     plugins: [tailwindcss()],
