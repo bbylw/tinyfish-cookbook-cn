@@ -1,0 +1,122 @@
+---
+import Icon from './Icon.astro';
+
+const links = [
+  { href: '#apis', label: '接口' },
+  { href: '#features', label: '为什么' },
+  { href: '#integrate', label: '接入' },
+  { href: '#recipes', label: '食谱' },
+  { href: '#quickstart', label: '快速开始' },
+];
+---
+
+<header
+  id="site-nav"
+  class="fixed top-0 inset-x-0 z-50 transition-[background,border,backdrop-filter] duration-300"
+>
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#top" class="group flex items-center gap-2.5 font-semibold tracking-tight">
+        <span
+          class="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#6ee7c9] to-[#5b8bff] text-[#07090e] shadow-[0_6px_18px_rgba(52,212,184,0.35)] transition-transform duration-300 group-hover:scale-105"
+        >
+          <Icon name="fish" class="w-5 h-5" />
+        </span>
+        <span class="text-[15px]">TinyFish <span class="text-fg-dim font-normal">Cookbook</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class="text-[13.5px] text-fg-muted hover:text-fg transition-colors"
+          >
+            {l.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a
+          href="https://agent.tinyfish.ai/"
+          target="_blank"
+          rel="noopener"
+          class="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-accent text-[#04121a] text-[13.5px] font-semibold px-4 py-2 transition-transform duration-200 hover:-translate-y-0.5 shadow-[0_8px_22px_rgba(52,212,184,0.3)]"
+        >
+          获取密钥
+          <Icon name="arrow" class="w-3.5 h-3.5" />
+        </a>
+        <button
+          id="nav-toggle"
+          aria-label="菜单"
+          class="md:hidden grid place-items-center w-10 h-10 rounded-lg border border-line text-fg-muted hover:text-fg hover:border-line/80"
+        >
+          <Icon name="menu" class="w-5 h-5" data-icon="menu" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 移动端抽屉 -->
+  <div
+    id="nav-drawer"
+    class="md:hidden hidden border-t border-line-soft bg-ink-2/95 backdrop-blur-xl"
+  >
+    <nav class="mx-auto max-w-[1240px] px-5 py-4 flex flex-col">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="py-2.5 text-[15px] text-fg-muted hover:text-fg border-b border-line-soft/60 last:border-0"
+          data-nav-link
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="https://agent.tinyfish.ai/"
+        target="_blank"
+        rel="noopener"
+        class="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full bg-accent text-[#04121a] text-sm font-semibold px-4 py-2.5"
+      >
+        获取密钥 <Icon name="arrow" class="w-3.5 h-3.5" />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+  if (nav && toggle && drawer) {
+    // 滚动加底色
+    const onScroll = () => {
+      if (window.scrollY > 12) {
+        nav.classList.add('backdrop-blur-xl', 'bg-ink/80', 'border-b', 'border-line-soft');
+      } else {
+        nav.classList.remove('backdrop-blur-xl', 'bg-ink/80', 'border-b', 'border-line-soft');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // 抽屉切换
+    const setIcon = (name: string) => {
+      toggle.querySelector('[data-icon]')?.setAttribute('data-icon', name);
+    };
+    const open = () => {
+      drawer.classList.remove('hidden');
+      toggle.setAttribute('aria-label', '关闭');
+      setIcon('close');
+    };
+    const close = () => {
+      drawer.classList.add('hidden');
+      toggle.setAttribute('aria-label', '菜单');
+      setIcon('menu');
+    };
+    toggle.addEventListener('click', () => {
+      drawer.classList.contains('hidden') ? open() : close();
+    });
+    drawer.querySelectorAll('[data-nav-link]').forEach((a) => a.addEventListener('click', close));
+  }
+</script>

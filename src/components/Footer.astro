@@ -1,0 +1,133 @@
+---
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+
+const socials = [
+  { label: 'Discord', short: 'Dc', href: 'https://discord.gg/tinyfish' },
+  { label: 'X', short: 'X', href: 'https://x.com/Tiny_Fish' },
+  { label: 'LinkedIn', short: 'in', href: 'https://www.linkedin.com/company/tinyfish-ai/' },
+  { label: 'Threads', short: 'Th', href: 'https://www.threads.com/@tinyfish_ai' },
+  { label: 'Instagram', short: 'Ig', href: 'https://www.instagram.com/tinyfish_ai/' },
+];
+
+const cols = [
+  {
+    title: '产品',
+    links: [
+      { label: '官网', href: 'https://tinyfish.ai/' },
+      { label: '文档', href: 'https://docs.tinyfish.ai/' },
+      { label: '控制台', href: 'https://agent.tinyfish.ai/' },
+      { label: '集成', href: 'https://www.tinyfish.ai/integrations' },
+    ],
+  },
+  {
+    title: '资源',
+    links: [
+      { label: 'GitHub 仓库', href: 'https://github.com/tinyfish-io/tinyfish-cookbook' },
+      { label: '贡献指南', href: 'https://github.com/tinyfish-io/tinyfish-cookbook/blob/main/CONTRIBUTING.md' },
+      { label: '许可证', href: 'https://github.com/tinyfish-io/tinyfish-cookbook/blob/main/LICENSE' },
+      { label: 'Agent Skill', href: 'https://skills.sh/tinyfish-io/tinyfish-cookbook/use-tinyfish' },
+    ],
+  },
+  {
+    title: '社区',
+    links: [
+      { label: 'Discord', href: 'https://discord.gg/tinyfish' },
+      { label: '已集成', href: 'https://www.tinyfish.ai/integrations' },
+      { label: 'tinyfi.sh 分享', href: 'https://tinyfi.sh/' },
+      { label: '法律免责声明', href: '#legal' },
+    ],
+  },
+];
+
+const legalPoints = [
+  { title: '"按原样"提供', body: '此处共享的所有代码、脚本和文档均按 "AS IS" 和 "AS AVAILABLE" 提供。TinyFish 不就社区贡献内容的准确性、可靠性或安全性作出任何明示或暗示的保证。' },
+  { title: '无维护义务', body: 'TinyFish 没有义务监控、更新或修复社区贡献衍生作品中发现的错误、缺陷或安全漏洞。' },
+  { title: '用户责任', body: '你需自行负责在生产环境中实施任何代码之前的审查和测试。使用这些衍生作品的风险由你自行承担。' },
+  { title: '责任限制', body: '在任何情况下，TinyFish 均不对因使用或无法使用本仓库内容而引起的任何索赔、损害或其他责任负责，包括但不限于系统故障、数据丢失或安全漏洞。' },
+];
+---
+
+<!-- 法律免责声明 -->
+<section id="legal" class="py-20 sm:py-24 border-t border-line-soft/60">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-8" data-reveal>
+      <div class="eyebrow">法律免责声明</div>
+      <h2 class="display mt-3 text-[clamp(26px,3.5vw,36px)]">使用须知</h2>
+    </div>
+    <div data-reveal class="rounded-[var(--radius-lg)] border border-line bg-surface-2/60 p-7 sm:p-9">
+      <p class="text-[14.5px] text-fg-muted leading-relaxed mb-6 text-pretty">
+        本仓库是一个社区驱动的空间，用于分享与 TinyFish 产品相关的衍生作品、代码示例和最佳实践。使用本仓库中的任何材料，即表示你确认并同意以下条款：
+      </p>
+      <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-6">
+        {legalPoints.map((p) => (
+          <li>
+            <h3 class="text-[14.5px] font-semibold text-fg mb-1.5 flex items-start gap-2">
+              <Icon name="check" class="w-4 h-4 text-accent shrink-0 mt-1" />
+              {p.title}
+            </h3>
+            <p class="text-[13.5px] text-fg-muted leading-relaxed pl-6 text-pretty">{p.body}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-7 pl-0 sm:pl-6 text-[13px] text-fg-dim italic">
+        注意：社区贡献不代表 TinyFish 的官方观点或受支持产品。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="border-t border-line-soft bg-ink-2">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8 py-14">
+    <div class="grid gap-12 lg:gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <!-- 品牌 -->
+      <div>
+        <a href="#top" class="flex items-center gap-2.5 font-semibold tracking-tight">
+          <span class="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#6ee7c9] to-[#5b8bff] text-[#07090e]">
+            <Icon name="fish" class="w-5 h-5" />
+          </span>
+          <span class="text-[15px]">TinyFish Cookbook</span>
+        </a>
+        <p class="mt-4 text-[14px] text-fg-muted leading-relaxed max-w-[300px] text-pretty">
+          面向 AI Agent 的网络层。一个 API 密钥，搜索、抓取、自动化、托管浏览器，随处可用。
+        </p>
+        <div class="flex gap-2.5 mt-5">
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener"
+              title={s.label}
+              class="grid place-items-center w-9 h-9 rounded-lg border border-line text-fg-muted text-[12px] font-bold transition-all duration-200 hover:-translate-y-0.5 hover:text-fg hover:border-accent"
+            >
+              {s.short}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- 链接列 -->
+      {cols.map((col) => (
+        <div>
+          <h4 class="text-[12px] font-semibold uppercase tracking-wider text-fg-dim mb-4">{col.title}</h4>
+          <ul class="flex flex-col gap-2.5">
+            {col.links.map((l) => (
+              <li>
+                <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener" class="text-[14px] text-fg-muted hover:text-fg transition-colors">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-line-soft flex flex-col sm:flex-row justify-between items-center gap-3 text-[13px] text-fg-dim">
+      <span>© {year} TinyFish · 社区驱动内容，按原样提供</span>
+      <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-warm"></span> 搜索与抓取免费 · 无需信用卡</span>
+    </div>
+  </div>
+</footer>

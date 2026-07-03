@@ -1,0 +1,91 @@
+---
+import { featured, recipeGroups, type Recipe } from '../data/content.ts';
+import Icon from './Icon.astro';
+
+const gh = (slug: string) =>
+  `https://github.com/tinyfish-io/tinyfish-cookbook/blob/main/${encodeURIComponent(slug).replace(/%2F/g, '/')}`;
+---
+
+<section id="recipes" class="py-24 sm:py-32 border-t border-line-soft/60">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-14" data-reveal>
+      <div class="eyebrow">食谱目录</div>
+      <h2 class="display mt-3 text-[clamp(28px,4vw,42px)] text-balance">
+        按用途分类的社区食谱
+      </h2>
+      <p class="mt-4 text-fg-muted text-[16px] text-pretty">
+        每个文件夹都是一个独立项目。下面按用途分类，而非实现方式。
+      </p>
+    </div>
+
+    <!-- 精选（带在线演示） -->
+    <div class="mb-16" data-reveal>
+      <div class="flex items-center gap-2.5 mb-6">
+        <Icon name="star" class="w-5 h-5 text-warm" />
+        <h3 class="text-[20px] font-semibold tracking-tight">精选 · 在线演示</h3>
+        <span class="text-[12.5px] text-fg-dim">— 使用最新 SDK，可立即体验</span>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {featured.map((r: Recipe) => (
+          <a
+            href={gh(r.slug)}
+            target="_blank"
+            rel="noopener"
+            class="group flex items-start gap-4 rounded-[var(--radius)] border border-line bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--color-accent)_35%,var(--color-line))]"
+          >
+            <div class="min-w-0 flex-1">
+              <code class="text-[14px] font-semibold text-fg group-hover:text-accent transition-colors mono">{r.slug}</code>
+              <p class="mt-1.5 text-[13px] text-fg-muted leading-relaxed text-pretty">{r.desc}</p>
+            </div>
+            {r.demo && (
+              <span
+                class="shrink-0 inline-flex items-center gap-1 rounded-full border border-[rgba(52,212,184,0.3)] bg-[rgba(52,212,184,0.08)] px-2.5 py-1 text-[11.5px] font-medium text-accent"
+                onclick={`event.preventDefault(); window.open('${r.demo}','_blank','noopener')`}
+              >
+                Demo <Icon name="arrow" class="w-3 h-3" />
+              </span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- 分类食谱 -->
+    {recipeGroups.map((group, gi) => (
+      <div class="mb-12 last:mb-0" data-reveal style={`transition-delay:${Math.min(gi * 50, 250)}ms`}>
+        <div class="flex items-center gap-2.5 mb-2">
+          <span class="grid place-items-center w-7 h-7 rounded-lg border border-line bg-elev/40 text-fg-muted">
+            <Icon name={group.icon} class="w-4 h-4" />
+          </span>
+          <h3 class="text-[18px] font-semibold tracking-tight">{group.label}</h3>
+        </div>
+        {group.blurb && <p class="text-[13px] text-fg-dim mb-4 ml-9">{group.blurb}</p>}
+
+        <div class="rounded-[var(--radius)] border border-line bg-surface overflow-hidden ml-0 sm:ml-9">
+          <ul class="divide-y divide-line-soft">
+            {group.recipes.map((r) => (
+              <li>
+                <a
+                  href={gh(r.slug)}
+                  target="_blank"
+                  rel="noopener"
+                  class="group flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-5 px-5 py-3.5 transition-colors duration-200 hover:bg-surface-2"
+                >
+                  <code class="text-[13.5px] font-medium text-fg group-hover:text-accent transition-colors mono shrink-0 sm:w-[220px]">{r.slug}</code>
+                  <span class="text-[13px] text-fg-muted text-pretty">{r.desc}</span>
+                  <Icon name="arrow" class="hidden sm:block w-3.5 h-3.5 text-fg-dim opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all shrink-0 sm:ml-auto" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+
+    <p class="mt-12 text-center text-[14px] text-fg-muted">
+      每周都会有新食谱加入。查看
+      <a href="https://github.com/tinyfish-io/tinyfish-cookbook/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="text-accent font-medium hover:underline">贡献指南</a>
+      了解如何提交你的作品。
+    </p>
+  </div>
+</section>

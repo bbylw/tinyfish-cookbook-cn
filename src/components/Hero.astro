@@ -1,0 +1,93 @@
+---
+import Icon from './Icon.astro';
+---
+
+<section id="top" class="relative overflow-hidden bg-aurora">
+  <div class="grain absolute inset-0"></div>
+  <!-- 顶部留白给固定导航 -->
+  <div class="pt-32 sm:pt-40 pb-20 sm:pb-28">
+    <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+      <div class="max-w-[860px] mx-auto text-center">
+        <!-- 状态徽章 -->
+        <div
+          data-reveal
+          class="inline-flex items-center gap-2 rounded-full border border-[rgba(52,212,184,0.28)] bg-[rgba(52,212,184,0.08)] px-3.5 py-1.5 text-[12.5px] font-medium text-accent"
+        >
+          <span class="relative flex w-1.5 h-1.5">
+            <span class="absolute inset-0 rounded-full bg-accent animate-ping opacity-60"></span>
+            <span class="relative rounded-full bg-accent w-1.5 h-1.5"></span>
+          </span>
+          搜索和抓取功能现已免费
+        </div>
+
+        <!-- 主标题 -->
+        <h1
+          data-reveal
+          class="display mt-7 text-[clamp(38px,7vw,72px)] text-balance"
+          style="transition-delay:60ms"
+        >
+          面向 AI Agent 的<br />
+          <span class="gradient-text italic">网络层</span>
+          与食谱合集
+        </h1>
+
+        <p
+          data-reveal
+          class="mt-6 text-pretty text-[clamp(15.5px,2.2vw,19px)] text-fg-muted leading-relaxed max-w-[620px] mx-auto"
+          style="transition-delay:120ms"
+        >
+          TinyFish Cookbook 汇集了基于 TinyFish 构建的不断增长的食谱、演示与自动化方案。
+          搜索实时网页、干净地读取页面、执行多步骤浏览器流程，
+          或访问任何没有开放 API 的网站 —— 这里就是起点。
+        </p>
+
+        <!-- 行动按钮 -->
+        <div
+          data-reveal
+          class="mt-9 flex flex-wrap items-center justify-center gap-3"
+          style="transition-delay:180ms"
+        >
+          <a
+            href="https://agent.tinyfish.ai/"
+            target="_blank"
+            rel="noopener"
+            class="group inline-flex items-center gap-2 rounded-full bg-accent text-[#04121a] text-[15px] font-semibold px-6 py-3 transition-transform duration-200 hover:-translate-y-0.5 shadow-[0_12px_32px_rgba(52,212,184,0.32)]"
+          >
+            立即获取 API 密钥
+            <Icon name="arrow" class="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#recipes"
+            class="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 text-[15px] font-medium px-6 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-fg-dim hover:bg-surface"
+          >
+            浏览食谱目录
+          </a>
+        </div>
+
+        <!-- 关键数据 -->
+        <div
+          data-reveal
+          class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 max-w-[640px] mx-auto"
+          style="transition-delay:240ms"
+        >
+          {[
+            { num: '4', label: '核心接口' },
+            { num: '2', label: '免费接口', accent: true },
+            { num: '30+', label: '社区食谱', accent: true },
+            { num: '<0.5s', label: '搜索响应' },
+          ].map((s) => (
+            <div class="text-center">
+              <div class={`text-3xl font-semibold tracking-tight tabular-nums ${s.accent ? 'text-accent' : ''}`}>
+                {s.num}
+              </div>
+              <div class="mt-1 text-[12.5px] text-fg-dim">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部分隔渐变 -->
+  <div class="h-px bg-gradient-to-r from-transparent via-line to-transparent"></div>
+</section>

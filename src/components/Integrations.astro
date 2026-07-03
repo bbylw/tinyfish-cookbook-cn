@@ -1,0 +1,41 @@
+---
+import { integrations } from '../data/content.ts';
+import Icon from './Icon.astro';
+---
+
+<section id="integrate" class="py-24 sm:py-32 border-t border-line-soft/60">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-14" data-reveal>
+      <div class="eyebrow">使用 TinyFish 的方式</div>
+      <h2 class="display mt-3 text-[clamp(28px,4vw,42px)] text-balance">
+        一个 API 密钥，随处可用
+      </h2>
+      <p class="mt-4 text-fg-muted text-[16px] text-pretty">
+        从 REST API 到 CLI、SDK、MCP Server，总有一种方式适合你的工作流。
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {integrations.map((it, i) => (
+        <article
+          data-reveal
+          style={`transition-delay:${(i % 3) * 60}ms`}
+          class:list={[
+            'group relative flex flex-col rounded-[var(--radius)] border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklab,var(--color-accent)_35%,var(--color-line))]',
+          ]}
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <span class="grid place-items-center w-10 h-10 rounded-xl border border-line bg-elev/50 text-fg group-hover:text-accent transition-colors">
+              <Icon name={it.icon} class="w-5 h-5" />
+            </span>
+            <h3 class="text-[16px] font-semibold tracking-tight">{it.title}</h3>
+          </div>
+          <p class="text-[13.5px] text-fg-muted leading-relaxed mb-4 text-pretty flex-1">{it.desc}</p>
+          <code class="block text-[11.5px] text-fg-dim mono bg-ink-2 border border-line-soft rounded-lg px-3 py-2.5 break-all leading-relaxed">
+            {it.code}
+          </code>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

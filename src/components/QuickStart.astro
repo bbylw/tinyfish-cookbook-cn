@@ -1,0 +1,158 @@
+---
+import { codeSamples } from '../data/content.ts';
+import Icon from './Icon.astro';
+
+const tabs = [
+  { id: 'curl', label: 'cURL', code: codeSamples.curl, lang: 'bash' },
+  { id: 'python', label: 'Python', code: codeSamples.python, lang: 'python' },
+  { id: 'typescript', label: 'TypeScript', code: codeSamples.typescript, lang: 'ts' },
+];
+---
+
+<section id="quickstart" class="py-24 sm:py-32 border-t border-line-soft/60">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-14" data-reveal>
+      <div class="eyebrow">快速开始</div>
+      <h2 class="display mt-3 text-[clamp(28px,4vw,42px)] text-balance">
+        三步跑通你的第一个 Agent
+      </h2>
+      <p class="mt-4 text-fg-muted text-[16px] text-pretty">
+        无需信用卡，Search 和 Fetch 开箱即用且免费。
+      </p>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-[auto_1fr] lg:gap-14">
+      <!-- 步骤列表 -->
+      <ol class="flex flex-col gap-px" data-reveal>
+        <li class="flex gap-5 pb-8 border-b border-line-soft">
+          <span class="shrink-0 grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-accent to-accent-2 text-[#04121a] font-bold text-lg shadow-[0_8px_20px_rgba(52,212,184,0.3)]">1</span>
+          <div>
+            <h3 class="text-[17px] font-semibold mb-1.5">获取 API 密钥</h3>
+            <p class="text-[14px] text-fg-muted text-pretty mb-3">在 agent.tinyfish.ai 注册。无需信用卡，Search 和 Fetch 开箱即用且免费。</p>
+            <a href="https://agent.tinyfish.ai/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-accent hover:underline">
+              前往注册 <Icon name="arrow" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </li>
+        <li class="flex gap-5 py-8 border-b border-line-soft">
+          <span class="shrink-0 grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-accent to-accent-2 text-[#04121a] font-bold text-lg shadow-[0_8px_20px_rgba(52,212,184,0.3)]">2</span>
+          <div class="min-w-0">
+            <h3 class="text-[17px] font-semibold mb-1.5">运行示例</h3>
+            <p class="text-[14px] text-fg-muted text-pretty mb-3">选择你熟悉的语言，复制即用。以下示例通过 Agent 接口抓取 AgentQL 的订阅方案。</p>
+            <span class="inline-flex items-center gap-1.5 text-[12.5px] text-fg-dim"><Icon name="bolt" class="w-3.5 h-3.5 text-warm" /> 支持流式返回</span>
+          </div>
+        </li>
+        <li class="flex gap-5 pt-8">
+          <span class="shrink-0 grid place-items-center w-11 h-11 rounded-xl bg-gradient-to-br from-accent to-accent-2 text-[#04121a] font-bold text-lg shadow-[0_8px_20px_rgba(52,212,184,0.3)]">3</span>
+          <div>
+            <h3 class="text-[17px] font-semibold mb-1.5">分享你的演示</h3>
+            <p class="text-[14px] text-fg-muted text-pretty mb-3">想给朋友分享 localhost 演示？使用 tinyfi.sh —— 免费且极其简单。</p>
+            <a href="https://tinyfi.sh/" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-accent hover:underline">
+              了解 tinyfi.sh <Icon name="arrow" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </li>
+      </ol>
+
+      <!-- 代码块（交互岛） -->
+      <div data-reveal class="lg:pt-2">
+        <div class="rounded-[var(--radius-lg)] border border-line bg-surface overflow-hidden shadow-amb">
+          <!-- 标签栏 -->
+          <div class="flex items-center justify-between border-b border-line-soft bg-ink-2/60 px-4 pt-2">
+            <div role="tablist" class="flex gap-1" data-code-tabs>
+              {tabs.map((t, i) => (
+                <button
+                  role="tab"
+                  data-tab={t.id}
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                  class:list={[
+                    'relative px-3.5 py-2.5 text-[13px] font-medium transition-colors',
+                    i === 0 ? 'text-fg' : 'text-fg-dim hover:text-fg-muted',
+                  ]}
+                >
+                  {t.label}
+                  {i === 0 && <span class="absolute left-2.5 right-2.5 bottom-0 h-0.5 bg-accent rounded-full"></span>}
+                </button>
+              ))}
+            </div>
+            <button
+              data-copy-btn
+              class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] text-fg-dim hover:text-fg hover:bg-elev/60 transition-colors"
+              aria-label="复制代码"
+            >
+              <Icon name="copy" class="w-3.5 h-3.5" />
+              <span data-copy-label>复制</span>
+            </button>
+          </div>
+
+          <!-- 代码面板 -->
+          {tabs.map((t, i) => (
+            <div data-panel={t.id} class:list={[i === 0 ? 'block' : 'hidden', 'p-5 overflow-x-auto']}>
+              <pre class="mono text-[13px] leading-[1.7] text-fg"><code data-code={t.id}>{t.code}</code></pre>
+            </div>
+          ))}
+        </div>
+
+        <!-- API 端点速查 -->
+        <div class="mt-5 grid sm:grid-cols-2 gap-3">
+          {[
+            { label: 'Search', endpoint: 'api.search.tinyfish.ai' },
+            { label: 'Fetch', endpoint: 'api.fetch.tinyfish.ai' },
+          ].map((e) => (
+            <div class="flex items-center justify-between gap-3 rounded-lg border border-line-soft bg-surface/60 px-4 py-3">
+              <span class="text-[12.5px] text-fg-dim">{e.label}</span>
+              <code class="mono text-[12px] text-accent">{e.endpoint}</code>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector('[data-code-tabs]')?.closest('section');
+  if (root) {
+    const tabs = root.querySelectorAll<HTMLElement>('[data-tab]');
+    const panels = root.querySelectorAll<HTMLElement>('[data-panel]');
+    const copyBtn = root.querySelector<HTMLElement>('[data-copy-btn]');
+    const copyLabel = root.querySelector<HTMLElement>('[data-copy-label]');
+
+    let active = 'curl';
+    const setActive = (id: string) => {
+      active = id;
+      tabs.forEach((t) => {
+        const on = t.getAttribute('data-tab') === id;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.classList.toggle('text-fg', on);
+        t.classList.toggle('text-fg-dim', !on);
+        const bar = t.querySelector('span');
+        if (bar instanceof HTMLElement) bar.style.display = on ? 'block' : 'none';
+      });
+      panels.forEach((p) => {
+        const isOn = p.getAttribute('data-panel') === id;
+        p.classList.toggle('hidden', !isOn);
+        p.classList.toggle('block', isOn);
+      });
+    };
+    tabs.forEach((t) => t.addEventListener('click', () => setActive(t.getAttribute('data-tab') ?? 'curl')));
+    setActive('curl');
+
+    copyBtn?.addEventListener('click', async () => {
+      const code = root.querySelector(`[data-code="${active}"]`)?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(code);
+        if (copyLabel) {
+          copyLabel.textContent = '已复制';
+          copyBtn.classList.add('text-accent');
+          setTimeout(() => {
+            copyLabel.textContent = '复制';
+            copyBtn.classList.remove('text-accent');
+          }, 1600);
+        }
+      } catch {
+        /* clipboard 不可用时静默 */
+      }
+    });
+  }
+</script>

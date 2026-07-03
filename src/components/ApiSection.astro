@@ -1,0 +1,69 @@
+---
+import { apis } from '../data/content.ts';
+import Icon from './Icon.astro';
+---
+
+<section id="apis" class="py-24 sm:py-32">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-14" data-reveal>
+      <div class="eyebrow">接口概览</div>
+      <h2 class="display mt-3 text-[clamp(28px,4vw,42px)] text-balance">
+        四个接口，层层递进
+      </h2>
+      <p class="mt-4 text-fg-muted text-[16px] text-pretty">
+        从闪电般快速的信息检索，到完全托管的浏览器自动化。<span class="text-accent font-medium">搜索和抓取免费使用。</span>
+      </p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      {apis.map((api, i) => (
+        <article
+          data-reveal
+          style={`transition-delay:${i * 70}ms`}
+          class="group relative rounded-[var(--radius-lg)] border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[color-mix(in_oklab,var(--color-accent)_40%,var(--color-line))] hover:shadow-pop"
+        >
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-semibold tracking-tight">{api.name}</h3>
+              {api.host && (
+                <code class="block mt-1.5 text-[11.5px] text-fg-dim mono">{api.host}</code>
+              )}
+            </div>
+            <span
+              class:list={[
+                'shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider border',
+                api.billing === 'free'
+                  ? 'text-warm border-[rgba(245,177,74,0.32)] bg-[rgba(245,177,74,0.1)]'
+                  : 'text-accent border-[rgba(52,212,184,0.3)] bg-[rgba(52,212,184,0.08)]',
+              ]}
+            >
+              {api.billing === 'free' ? '免费' : '按量计费'}
+            </span>
+          </div>
+
+          <p class="text-[14.5px] text-fg-muted leading-relaxed mb-5 text-pretty">{api.desc}</p>
+
+          <div class="flex flex-wrap gap-2 mb-5">
+            {api.features.map((f) => (
+              <span class="inline-flex items-center gap-1.5 rounded-md bg-elev/60 border border-line-soft px-2.5 py-1 text-[12px] text-fg-muted">
+                <Icon name="check" class="w-3 h-3 text-accent" />
+                {f}
+              </span>
+            ))}
+          </div>
+
+          <dl class="flex flex-wrap gap-x-6 gap-y-2 text-[12.5px] pt-4 border-t border-line-soft">
+            <div class="flex items-center gap-2">
+              <dt class="text-fg-dim">速度</dt>
+              <dd class="font-medium text-fg tabular-nums">{api.speed}</dd>
+            </div>
+            <div class="flex items-center gap-2 min-w-0">
+              <dt class="text-fg-dim">场景</dt>
+              <dd class="font-medium text-fg truncate">{api.use}</dd>
+            </div>
+          </dl>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — Tailwind v4 CSS-first theme
+   编辑式深色主题：墨蓝底 + 海洋青绿点缀（呼应 TinyFish）
+   ============================================================ */
+@theme {
+  /* Color palette */
+  --color-ink: #07090e;
+  --color-ink-2: #0b0e16;
+  --color-surface: #10131d;
+  --color-surface-2: #161a26;
+  --color-elev: #1d2230;
+  --color-line: #232a3a;
+  --color-line-soft: #1a2030;
+
+  --color-fg: #e9ebf2;
+  --color-fg-muted: #959db0;
+  --color-fg-dim: #646c80;
+
+  --color-accent: #34d4b8;        /* teal — fish / ocean */
+  --color-accent-2: #5b8bff;      /* cobalt */
+  --color-warm: #f5b14a;          /* amber — "free" warmth */
+  --color-rose: #ff7a8a;
+
+  /* Fonts */
+  --font-display: "Fraunces", "Noto Serif SC", Georgia, serif;
+  --font-sans: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    font-feature-settings: "tnum" 1, "cv05" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+    color: #fff;
+  }
+
+  /* Lenis-free native scrollbar polish */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-elev);
+    border-radius: 10px;
+    border: 2px solid var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #2a3142; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ============================================================
+   Type scale — editorial display headings via Fraunces
+   ============================================================ */
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 30, "WONK" 0;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .mono { font-family: var(--font-mono); }
+
+  /* Subtle grain overlay for depth without glassmorphism */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  .ring-accent {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-accent) 40%, transparent);
+  }
+
+  .shadow-amb {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.28);
+  }
+  .shadow-pop {
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.5),
+      0 28px 64px rgba(0, 0, 0, 0.5);
+  }
+  .glow-accent {
+    box-shadow: 0 0 0 1px rgba(52, 212, 184, 0.18), 0 18px 50px rgba(52, 212, 184, 0.18);
+  }
+
+  .gradient-text {
+    background: linear-gradient(105deg, #6ee7c9 0%, #34d4b8 35%, #5b8bff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-aurora {
+    background:
+      radial-gradient(55% 45% at 18% 0%, rgba(52, 212, 184, 0.16), transparent 60%),
+      radial-gradient(45% 38% at 85% 8%, rgba(91, 139, 255, 0.14), transparent 60%),
+      radial-gradient(40% 30% at 50% 100%, rgba(245, 177, 74, 0.06), transparent 60%);
+  }
+}
+
+/* Reveal-on-scroll */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}

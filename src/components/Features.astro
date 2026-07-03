@@ -1,0 +1,40 @@
+---
+import { features } from '../data/content.ts';
+import Icon from './Icon.astro';
+---
+
+<section id="features" class="py-24 sm:py-32 border-t border-line-soft/60">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="max-w-[680px] mb-14" data-reveal>
+      <div class="eyebrow">为什么选择 TinyFish</div>
+      <h2 class="display mt-3 text-[clamp(28px,4vw,42px)] text-balance">
+        为 Agent 而生的网络层
+      </h2>
+      <p class="mt-4 text-fg-muted text-[16px] text-pretty">
+        一个 API 密钥，随处可用。把没有 API 的网站变成可编程数据源。
+      </p>
+    </div>
+
+    <div class="grid gap-px bg-line-soft rounded-[var(--radius-lg)] overflow-hidden border border-line-soft sm:grid-cols-2 lg:grid-cols-3">
+      {features.map((f, i) => (
+        <article
+          data-reveal
+          style={`transition-delay:${(i % 3) * 60}ms`}
+          class="group relative bg-surface p-7 transition-colors duration-300 hover:bg-surface-2"
+        >
+          <div class="flex items-start gap-4">
+            <span
+              class="shrink-0 grid place-items-center w-11 h-11 rounded-xl border border-line bg-elev/50 text-accent transition-all duration-300 group-hover:border-[rgba(52,212,184,0.4)] group-hover:bg-[rgba(52,212,184,0.08)]"
+            >
+              <Icon name={f.icon} class="w-5 h-5" />
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-[15.5px] font-semibold tracking-tight mb-1.5">{f.title}</h3>
+              <p class="text-[13.5px] text-fg-muted leading-relaxed text-pretty">{f.desc}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

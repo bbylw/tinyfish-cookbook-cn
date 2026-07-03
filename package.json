@@ -1,0 +1,22 @@
+{
+  "name": "tinyfish-cookbook-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^7.0.6",
+    "tailwindcss": "^4.3.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
+  }
+}
